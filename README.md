@@ -1,4 +1,5 @@
 ## Crossing Language Borders: A Pipeline for Indonesian Manhwa Translation
+([Paper Link](https://arxiv.org/abs/2501.01629))
 
 ## Overview
 This repository contains the `FINAL_CODE_DEMO.ipynb` notebook, a complete pipeline designed for object detection, OCR (Optical Character Recognition), and translation tasks on images, particularly for analyzing and translating speech bubbles in manhwa (Korean comics). Th translation task focuses on doing Indonesian to Eng translations.
