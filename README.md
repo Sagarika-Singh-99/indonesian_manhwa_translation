@@ -1,19 +1,73 @@
 ## Crossing Language Borders: A Pipeline for Indonesian Manhwa Translation
 ([Paper Link](https://arxiv.org/abs/2501.01629))
 
-## Overview
-This repository contains the `FINAL_CODE_DEMO.ipynb` notebook, a complete pipeline designed for object detection, OCR (Optical Character Recognition), and translation tasks on images, particularly for analyzing and translating speech bubbles in manhwa (Korean comics). Th translation task focuses on doing Indonesian to Eng translations.
+This project presents a practical and efficient pipeline to automate the **translation of Manhwa (Korean comics) from Indonesian to English**, using a combination of computer vision, OCR, and machine translation.
 
-The pipeline includes all of the following steps:
-- **Object Detection**: Using YOLOv5 for detecting bounding boxes around speech bubbles.
-- **OCR**: Extracting text from the speech bubbles using Tesseract.
-- **Translation**: Translating extracted text into the desired language which is done using pre-trained models `final_model`(is included in the zip folder).
-- **Overlay**: Rendering translated text back onto the original images.
+This repo contains the final pipeline code and results from each stage. Due to limitations, we have not uploaded the training models' weights and other parameters. You are welcome to reach out to me if you need the weights of the fine-tuned YOLO model and fine-tuned translation model. 
+
+Reach out to me: Sagarika Singh (ss3038@rit.edu) ([LinkedIn](https://www.linkedin.com/in/sagarika-singh-938aa11bb/)) ([Google Scholar](https://scholar.google.com/citations?user=rKWm70MAAAAJ&hl=en&oi=ao))
 
 ---
 
-## Prerequisites
-This project is tested and should run on **Narnia**. Running locally on other environments may require additional configuration steps. If you encounter errors, we highly recommend switching to **Google Colab**.
+## Abstract
+
+Manhwa is gaining popularity globally, but language remains a barrier. Manual translation from Indonesian to English is slow and labor-intensive. Our pipeline leverages machine learning to automate:
+
+- **Speech bubble detection** (YOLOv5xu)
+- **Optical Character Recognition (OCR)** (Tesseract)
+- **Machine Translation** (fine-tuned MarianMT)
+- **Text reintegration** onto original panels (OpenCV, Pillow)
+
+This solution reduces turnaround time and enhances accessibility for English-speaking audiences, especially given the low-resource nature of the Indonesian-English translation domain.
+
+---
+
+## Datasets
+
+| Component               | Dataset Source         | Description                                                |
+|------------------------|------------------------|------------------------------------------------------------|
+| Speech Bubble Detection| Webcomics (Roboflow)   | 538 annotated Manhwa panels with "Text" class             |
+| Machine Translation    | Identic + OpenSubtitles| ~30,000 bilingual lines covering formal and informal text  |
+
+---
+
+## Methodology
+
+| Step                  | Model/Tool Used         | Description                                                |
+|-----------------------|-------------------------|------------------------------------------------------------|
+| 1. Bubble Detection   | YOLOv5xu (fine-tuned)   | Detects speech bubbles in panels                           |
+| 2. OCR                | Tesseract (Indonesian)  | Extracts text from bubbles (CER: 3.1%)                     |
+| 3. Translation        | MarianMT (fine-tuned)   | Translates Indonesian text to English (BLEU: 0.27, METEOR: 0.61) |
+| 4. Reintegration      | OpenCV, Pillow          | Renders translated text in the original speech bubbles     |
+
+---
+
+## Results
+
+| Component               | Metric              | Score    |
+|-------------------------|---------------------|----------|
+| **YOLOv5xu (Detection)**| F1 Score            | 90.7%    |
+|                         | mAP@0.5             | 96.3%    |
+|                         | Mean Precision      | 89.4%    |
+| **OCR (Tesseract)**     | Character Error Rate| 3.1%     |
+|                         | Word Error Rate     | 8.6%     |
+| **Translation (MarianMT)**| BLEU              | 0.27     |
+|                         | METEOR              | 0.61     |
+
+The pipeline shows **strong performance** across detection, transcription, and translation—despite limited data—highlighting the effectiveness of targeted fine-tuning for low-resource tasks.
+
+---
+
+## 📌 Sample Output
+
+| Step                   | Sample                           |
+|------------------------|----------------------------------|
+| Original Panel         | ![Original panel](NLP_pro/manhwa_test_results/predictions/mt_12.jpg)        |
+| Detected Speech bubbles Bubbles extracted     | ![](NLP_pro/manhwa_test_results/speech_bubbles_crops/mt_1_bubble_0.jpg)         |
+| Translated Panel       | ![](NLP_pro/manhwa_test_results/translated_images/mt_12_translated.png)      |
+
+
+---
 
 ### Required Libraries
 The following libraries and tools are required. Ensure they are installed before running the notebook:
@@ -31,18 +85,8 @@ Use the following commands to install missing dependencies in Colab:
 ```
 ---
 
-## Pre-trained Models
-Training the models from scratch takes over **2 hours**. To save time, we have provided a pre-trained model that you can directly use. Please ensure the following files are available:
-
-1. **Object Detection Model**: Located at `weights/best.pt` in the Drive path referenced in the notebook.
-2. **Translation Model**: Located at `/content/drive/MyDrive/NLP_pro/final_trans_model`.(Please change the path according to your needs)
-
-If these files are missing or incorrectly configured, the notebook may fail to execute.
-
----
-
 ## File Path locations
-Please note that there are many files, please change the file path location accordingly. 
+Please note that there are many files used in the code, please change the file path location accordingly. 
 
 1. trained_model_path = ".../NLP_pro/yolo_training/manhwa_yolo_training_res2/weights/best.pt" : This contains the path to our fine-tuned Yolov5xu best.pt model for detecing speech bubbles. 
 2. test_images_dir = ".../NLP_pro/manhwa_test_2" : This contains 11 images for running the model on. 
@@ -90,5 +134,8 @@ The translated text is rendered back onto the original images while also using t
  
 ---
 
+## Acknowledgement 
+This work was developed and co-authored as part of the Natural Language Processing course (PSYC 681) at Rochester Institute of Technology.
 
+---
 
