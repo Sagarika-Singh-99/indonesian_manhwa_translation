@@ -1,5 +1,6 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/crossing-language-borders-a-pipeline-for/object-detection-on-4)](https://paperswithcode.com/sota/object-detection-on-4?p=crossing-language-borders-a-pipeline-for)
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/crossing-language-borders-a-pipeline-for/machine-translation-on-opensubtitles)](https://paperswithcode.com/sota/machine-translation-on-opensubtitles?p=crossing-language-borders-a-pipeline-for)
 
 ## Crossing Language Borders: A Pipeline for Indonesian Manhwa Translation
 ([Paper Link](https://arxiv.org/abs/2501.01629))
